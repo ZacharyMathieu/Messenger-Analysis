@@ -1,9 +1,11 @@
+from typing import Callable
+
 import Constants
 from Result import Result
 
 
 class MessagesData:
-    __data = []
+    __data: dict[str, any]
 
     def __init__(self):
         self.__data = {Constants.MESSAGES_KEY: []}
@@ -20,23 +22,12 @@ class MessagesData:
                             d[Constants.CONTENT_KEY])
         return s
 
-    def append(self, data):
+    def append(self, data: dict[str, any]):
         for key in data:
             if key not in self.__data:
                 self.__data[key] = data[key]
             elif hasattr(self.__data[key], 'extend'):
                 self.__data[key].extend(data[key])
 
-    def number_of_messages_by_sender(self) -> Result:
-        messages = self.__data[Constants.MESSAGES_KEY]
-        data = {}
-
-        for d in messages:
-            if Constants.SENDER_KEY in d:
-                sender = d[Constants.SENDER_KEY]
-                if sender in data:
-                    data[sender] += 1
-                else:
-                    data[sender] = 1
-
-        return Result(data)
+    def apply_strategy(self, strategy: Callable[[dict[str, any]], Result]) -> Result:
+        return strategy(self.__data)
