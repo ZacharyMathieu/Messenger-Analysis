@@ -1,6 +1,7 @@
 from typing import Callable
 
 import Constants
+import FileWriter
 from Result import Result
 
 
@@ -29,5 +30,15 @@ class MessagesData:
             elif hasattr(self.__data[key], 'extend'):
                 self.__data[key].extend(data[key])
 
-    def apply_strategy(self, strategy: Callable[[dict[str, any]], Result]) -> Result:
-        return strategy(self.__data)
+    def apply_strategy(self, strategy: Callable[[dict[str, any]], Result],
+                       sort: bool = False,
+                       write_result: bool = False) -> Result:
+        result = strategy(self.__data)
+
+        if sort:
+            result.sort()
+
+        if write_result:
+            FileWriter.write_result(result)
+
+        return result
