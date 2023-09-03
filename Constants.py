@@ -1,0 +1,5 @@
+FILES_FOLDER_PATH = "Files"
+MESSAGES_KEY = "messages"
+SENDER_KEY = "sender_name"
+TIMESTAMP_KEY = "timestamp_ms"
+CONTENT_KEY = "content"
