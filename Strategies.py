@@ -7,13 +7,13 @@ from Result import Result
 
 # X     Number of messages by sender
 #       Number of images by sender
-#       Number of characters by sender
+# X     Number of characters by sender
 # X     Most sent message
 #       Most used reaction
 #       Most used emoji
 # X     Most used word
 # X     Average time of day of messages
-#       Number of messages by time of day
+# X     Number of messages by time of day
 
 def __count_values_for_key(messages: list[any], key: str, name: str) -> Result:
     data: dict[str, int] = {}
@@ -38,6 +38,23 @@ def number_of_messages_by_message_content(data: dict[str, any]) -> Result:
                                   "Number of messages by message content")
 
 
+def number_of_characters_by_sender(data: dict[str, any]) -> Result:
+    result: dict[str, int] = {}
+    messages = data[Constants.MESSAGES_KEY]
+    name = "Number of characters by sender"
+
+    for message in messages:
+        if Constants.CONTENT_KEY in message and Constants.SENDER_KEY in message:
+            sender = message[Constants.SENDER_KEY]
+
+            if sender not in result:
+                result[sender] = 0
+
+            result[sender] += len(message[Constants.CONTENT_KEY])
+
+    return Result.from_dict(result, name)
+
+
 def most_used_word(data: dict[str, any]) -> Result:
     messages = data[Constants.MESSAGES_KEY]
     key = Constants.CONTENT_KEY
@@ -48,7 +65,8 @@ def most_used_word(data: dict[str, any]) -> Result:
     for d in messages:
         if key in d:
             message: str = d[key]
-            words = message.lower() \
+            # words = message.lower() \
+            words = message \
                 .replace(".", "") \
                 .replace(",", "") \
                 .replace("'", " ") \

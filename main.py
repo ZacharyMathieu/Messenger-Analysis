@@ -10,6 +10,7 @@ if __name__ == '__main__':
         messages.append(FileReader.read(file_path))
 
     # messages.apply_strategy(Strategies.number_of_messages_by_sender, sort=True, write_result=True)
+    # messages.apply_strategy(Strategies.number_of_characters_by_sender, sort=True, write_result=True)
     # messages.apply_strategy(Strategies.number_of_messages_by_message_content, sort=True, write_result=True)
     # messages.apply_strategy(Strategies.most_used_word, sort=True, write_result=True)
     # messages.apply_strategy(Strategies.average_time_of_day_of_messages, sort=False, write_result=True)
