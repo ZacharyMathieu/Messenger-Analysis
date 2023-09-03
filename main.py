@@ -3,7 +3,6 @@ import Strategies
 from FileReader import FileReader
 from MessagesData import MessagesData
 
-
 if __name__ == '__main__':
     messages = MessagesData()
 
@@ -11,4 +10,7 @@ if __name__ == '__main__':
         messages.append(FileReader.read(file_path))
 
     result = messages.apply_strategy(Strategies.number_of_messages_by_sender)
-    print(result.__str__())
+    print("{}:\n{}".format(result.name, result.__str__()))
+
+    result = messages.apply_strategy(Strategies.number_of_messages_by_message_content)
+    print("{}:\n{}".format(result.name, result.__str__()))

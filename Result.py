@@ -1,15 +1,17 @@
 class Result:
     __data: list[dict[str, int]]
+    name: str
 
-    def __init__(self, data: list[dict[str, int]]):
+    def __init__(self, data: list[dict[str, int]], name: str):
         self.__data = data
+        self.name = name
 
     @staticmethod
-    def from_dict(data: dict[str, int]) -> "Result":
+    def from_dict(data: dict[str, int], name: str) -> "Result":
         data_list = []
         for key in data:
             data_list.append({key: data[key]})
-        return Result(data_list)
+        return Result(data_list, name)
 
     def __str__(self):
         s = ""
