@@ -1,11 +1,23 @@
 class Result:
-    __data = {}
+    __data: list[dict[str, int]]
 
-    def __init__(self, data):
+    def __init__(self, data: list[dict[str, int]]):
         self.__data = data
+
+    @staticmethod
+    def from_dict(data: dict[str, int]) -> "Result":
+        data_list = []
+        for key in data:
+            data_list.append({key: data[key]})
+        return Result(data_list)
 
     def __str__(self):
         s = ""
-        for key in self.__data:
-            s += "{} : {}\n".format(key, self.__data[key].__str__())
+        for value in self.__data:
+            for key in value:
+                s += "{} : {}\n".format(key, value[key].__str__())
         return s
+
+    def sort(self):
+        # TODO
+        return
