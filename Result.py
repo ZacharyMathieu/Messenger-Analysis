@@ -7,7 +7,7 @@ class Result:
         self.name = name
 
     @staticmethod
-    def from_dict(data: dict[str, int], name: str) -> "Result":
+    def from_dict(data: dict[str, float], name: str) -> "Result":
         data_list = []
         for key in data:
             data_list.append({key: data[key]})
