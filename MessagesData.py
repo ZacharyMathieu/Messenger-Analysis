@@ -20,22 +20,23 @@ class MessagesData:
                             d[Constants.CONTENT_KEY])
         return s
 
-    @staticmethod
-    def from_raw_data() -> "MessagesData":
-        return 
-    def __get_messages(self):
-        return self.__data[Constants.MESSAGES_KEY]
-
-    def append(self, data: "MessagesData"):
-        self.__data[Constants.MESSAGES_KEY].append(data.__get_messages)
+    def append(self, data):
+        for key in data:
+            if key not in self.__data:
+                self.__data[key] = data[key]
+            elif hasattr(self.__data[key], 'extend'):
+                self.__data[key].extend(data[key])
 
     def number_of_messages_by_sender(self) -> Result:
+        messages = self.__data[Constants.MESSAGES_KEY]
         data = {}
-        for d in self.__data[Constants.MESSAGES_KEY]:
+
+        for d in messages:
             if Constants.SENDER_KEY in d:
                 sender = d[Constants.SENDER_KEY]
                 if sender in data:
                     data[sender] += 1
                 else:
                     data[sender] = 1
+
         return Result(data)

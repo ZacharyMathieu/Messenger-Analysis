@@ -10,4 +10,4 @@ class FileReader:
         f = open("./{}/{}".format(Constants.FILES_FOLDER_PATH, message_file_path))
         data = json.load(f)
 
-        return
+        return data
